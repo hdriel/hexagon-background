@@ -7,9 +7,6 @@
   border-radius: 12px;
   padding: 2em;
 }
-.app * {
-  pointer-events: all;
-}
 
 .app p, .app span {
   color: black;
