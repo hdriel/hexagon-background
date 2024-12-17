@@ -7,15 +7,19 @@ import { useHexagons } from '../hooks/useHexagons';
 interface HexagonHoverProps {
     style?: any;
     resize?: boolean;
+    backgroundColor?: string;
+    borderColor?: string;
 }
 
 const HexagonHover: React.FC<PropsWithChildren<HexagonHoverProps>> = ({
     children,
     style,
     resize = true,
+    backgroundColor,
+    borderColor,
 }): React.ReactElement => {
     const [ref, { width, height }] = useElementSize(resize);
-    const hexagons = useHexagons({ width, height, hoverEffect: true });
+    const hexagons = useHexagons({ width, height, hoverEffect: true, backgroundColor, borderColor });
 
     return (
         <div ref={ref} className="hexagon-container">

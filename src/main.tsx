@@ -7,8 +7,8 @@ import HexagonSpotlight from './hexagon/Hexagon.spotlight';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <HexagonSpotlight>
+        <HexagonHover>
             <App />
-        </HexagonSpotlight>
+        </HexagonHover>
     </StrictMode>
 );

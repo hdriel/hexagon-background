@@ -4,10 +4,14 @@ export function useHexagons({
     width,
     height,
     hoverEffect,
+    backgroundColor,
+    borderColor,
 }: {
     width: number;
     height: number;
     hoverEffect?: boolean;
+    backgroundColor?: string | boolean;
+    borderColor?: string | boolean;
 }): any {
     const hexagonInRow = width ? parseInt(String(width / 85), 10) : 0;
     const hexagonInCol = height ? parseInt(String(height / 75), 10) : 0;
@@ -15,6 +19,8 @@ export function useHexagons({
     const hexagonClass = classNames({
         hexagon: true,
         'hexagon-hover': hoverEffect,
+        background: backgroundColor,
+        colorful: !borderColor,
     });
 
     return hexagonInCol && hexagonInRow
