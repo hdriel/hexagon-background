@@ -3,6 +3,7 @@
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    position: relative;
 }
 
 .hexagon-content{
@@ -23,8 +24,9 @@
 .hexagon {
     width: 100px;
     height: 110px;
-    margin: 2px;
+    margin: 1px;
     background-color: #111;
+    //background-color: #EEE;
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     animation: animation 4s linear infinite;
     transition: 1s;
@@ -49,10 +51,11 @@
         z-index: 2;
         pointer-events: none;
     }
-    &:hover{
-        background-color: #0F0;
-        transition: 0s;
-    }
+}
+
+.hexagon-hover:hover{
+    background-color: #0F0;
+    transition: 0s;
 }
 
 .hexagon-row{
@@ -66,6 +69,21 @@
     &:nth-child(even) {
         margin-right: -52px;
     }
+}
+
+.hexagon-cursor {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: .1s;
+    animation: animation 2s linear infinite;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(15px);
+    z-index: 0;
+    background: linear-gradient(90deg, #335BF4 0%, #2AE9C9 100%);
 }
 
 @keyframes animation {
