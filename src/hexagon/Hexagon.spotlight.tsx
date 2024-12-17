@@ -5,6 +5,7 @@ import { useElementSize } from '../hooks/useElementSize.ts';
 import { useHexagonSpotlight } from '../hooks/useHexagonSpotlight';
 import { useHexagons } from '../hooks/useHexagons';
 import classNames from 'classnames';
+import { isMobile } from 'react-device-detect';
 
 interface HexagonSpotlightProps {
     style?: CSSProperties;
@@ -20,7 +21,7 @@ const HexagonSpotlight: React.FC<PropsWithChildren<HexagonSpotlightProps>> = ({
     color,
     theme = 'dark',
 }): React.ReactElement => {
-    const [ref, { width, height }] = useElementSize(resize);
+    const [ref, { width, height }] = useElementSize(!isMobile && resize);
     const hexagons = useHexagons({ width, height, color, filled: false, hoverEffect: false });
     const lightElement = useHexagonSpotlight(ref);
 
