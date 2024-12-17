@@ -1,3 +1,4 @@
+import { useDebouncedCallback } from 'use-debounce';
 import { useState, useRef, useEffect, useCallback, type RefObject } from 'react';
 
 export function useElementSize(resize = false): [RefObject<HTMLDivElement>, { width: number; height: number }] {
@@ -15,17 +16,19 @@ export function useElementSize(resize = false): [RefObject<HTMLDivElement>, { wi
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const handleResizeDebounced = useDebouncedCallback(handleResize, 250);
+
     useEffect(() => {
-        handleResize();
-    }, [handleResize]);
+        handleResizeDebounced?.();
+    }, [handleResizeDebounced]);
 
     useEffect(() => {
         if (resize) {
-            window.addEventListener('resize', handleResize);
+            window.addEventListener('resize', handleResizeDebounced);
         }
 
         return () => {
-            if (resize) window.removeEventListener('resize', handleResize);
+            if (resize) window.removeEventListener('resize', handleResizeDebounced);
         };
     }, [handleResize, resize]);
 
