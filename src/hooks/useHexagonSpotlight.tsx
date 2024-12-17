@@ -19,7 +19,5 @@ export const useHexagonSpotlight = (containerRef: any) => {
         };
     }, [spotlightRef.current]);
 
-    const spotlightElement = <div ref={spotlightRef} className="hexagon-cursor" />;
-
-    return spotlightElement;
+    return <div ref={spotlightRef} className="hexagon-cursor" />;
 };

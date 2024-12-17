@@ -1,1 +1,1 @@
-export { default } from "./Hexagon.background";
+export { default } from './Hexagon.hover';
