@@ -5,7 +5,7 @@ export function useHexagons({
     width,
     height,
     hoverEffect,
-    color = 'rgba(0, 224, 255, 1)',
+    color,
     filled,
 }: {
     width: number;

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 export const useHexagonSpotlight = (
     containerRef: RefObject<HTMLDivElement>,
     { color, size }: { color?: string; size?: string } = {
-        color: 'linear-gradient(90deg, #335BF4 0%, #2AE9C9 100%)',
+        color: undefined, // 'linear-gradient(90deg, #335BF4 0%, #2AE9C9 100%)',
         size: '500px',
     }
 ) => {
