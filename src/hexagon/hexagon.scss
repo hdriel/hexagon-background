@@ -89,13 +89,15 @@
     left: 50%;
     transform: translate(-50%, -50%);
     transition: .1s;
-    animation: animation 2s linear infinite;
-    width: 500px;
-    height: 500px;
     border-radius: 50%;
     filter: blur(15px);
     z-index: 0;
-    background: linear-gradient(90deg, #335BF4 0%, #2AE9C9 100%);
+    background: var(--hexagon-cursor-color);
+    width: var(--hexagon-cursor-size);
+    height: var(--hexagon-cursor-size);
+    &.colorized {
+        animation: colorized-animation 2s linear infinite;
+    }
 }
 
 @keyframes colorized-animation {

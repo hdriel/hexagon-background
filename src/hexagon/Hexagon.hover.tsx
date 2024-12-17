@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { type CSSProperties } from 'react';
 import type { PropsWithChildren } from 'react';
 import './hexagon.scss';
 import { useElementSize } from '../hooks/useElementSize.ts';
 import { useHexagons } from '../hooks/useHexagons';
 
 interface HexagonHoverProps {
-    style?: any;
+    style?: CSSProperties;
     resize?: boolean;
     color?: string;
     filled?: string | boolean;
@@ -19,7 +19,7 @@ const HexagonHover: React.FC<PropsWithChildren<HexagonHoverProps>> = ({
     filled,
 }): React.ReactElement => {
     const [ref, { width, height }] = useElementSize(resize);
-    const hexagons = useHexagons({ width, height, hoverEffect: true, color, filled });
+    const hexagons = useHexagons({ width, height, color, filled, hoverEffect: true });
 
     return (
         <div ref={ref} className="hexagon-container">
