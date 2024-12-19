@@ -42,7 +42,38 @@
 }
 
 .card {
-  padding: 2em;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+}
+
+.fieldsets{
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  align-items: stretch;
+  justify-content: space-around;
+  width: 100%;
+}
+
+fieldset{
+  background: rgba(0, 0, 0, 0.19);
+  padding: 8px
+}
+
+fieldset[disabled]{
+  filter: blur(2px);
+}
+
+.field {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
 }
 
 .read-the-docs {

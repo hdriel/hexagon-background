@@ -5,12 +5,13 @@ import App from './components/App';
 import { HexagonSpotlight, HexagonHover } from './hexagon';
 
 const Main = (): ReactNode => {
-    const [mode, setMode] = useState(0);
-    const Wrapper = [HexagonSpotlight, HexagonHover][mode % 2];
-
+    const [data, setData] = useState({} as any);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const Wrapper = { hover: HexagonHover, spotlight: HexagonSpotlight }[data.type] ?? HexagonHover;
     return (
-        <Wrapper>
-            <App onChange={() => setMode((m) => m + 1)} />
+        <Wrapper {...data} size={data.size ? `${data.size}px` : ''}>
+            <App onChange={setData} />
         </Wrapper>
     );
 };
