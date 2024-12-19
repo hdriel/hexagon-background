@@ -4,13 +4,11 @@ import './switch.css';
 import './number.input.css';
 import { useReducer, useState } from 'react';
 
-// @ts-ignore
-// @ts-ignore
 function App({
     onChange,
 }: {
     onChange: (
-        state: { theme: 'dark' | 'light'; type: 'hover' | 'spotlight' } & (
+        state: { theme: 'dark' | 'light'; type: 'hover' | 'spotlight'; resize: boolean } & (
             | { size?: number; color?: string | boolean }
             | { filled?: number; color?: string | boolean }
         )
@@ -18,6 +16,7 @@ function App({
 }) {
     const [theme, setTheme] = useState<'dark' | 'light'>('dark');
     const [type, setType] = useState<'hover' | 'spotlight'>('spotlight');
+    const [resize, setResize] = useState<boolean>(true);
 
     const [hoverFields, updateHoverFields] = useReducer(
         (
@@ -32,7 +31,7 @@ function App({
                 newState.color = action.color;
             }
 
-            onChange({ ...newState, theme, type });
+            onChange({ ...newState, theme, type, resize });
             return newState;
         },
         {
@@ -51,7 +50,7 @@ function App({
                 newState.color = action.color;
             }
 
-            onChange({ ...newState, theme, type });
+            onChange({ ...newState, theme, type, resize });
             return newState;
         },
         {
@@ -95,6 +94,7 @@ function App({
                                         onChange({
                                             ...{ ['hover']: hoverFields, ['spotlight']: spotlightFields }[type],
                                             theme: newValue,
+                                            resize,
                                             type,
                                         });
                                         return newValue;
@@ -117,8 +117,33 @@ function App({
                                         onChange({
                                             ...{ ['hover']: hoverFields, ['spotlight']: spotlightFields }[type],
                                             theme,
+                                            resize,
                                             type: newValue,
                                         });
+                                        return newValue;
+                                    });
+                                }}
+                            />
+                            <span className="slider round"></span>
+                        </label>
+                    </div>
+
+                    <div className="field">
+                        <span className="switch-label">Resize: </span>
+                        <label className="switch">
+                            <input
+                                checked={resize}
+                                type="checkbox"
+                                onChange={() => {
+                                    setResize((value) => {
+                                        const newValue = !value;
+                                        onChange({
+                                            ...{ ['hover']: hoverFields, ['spotlight']: spotlightFields }[type],
+                                            resize: newValue,
+                                            theme,
+                                            type,
+                                        });
+
                                         return newValue;
                                     });
                                 }}
