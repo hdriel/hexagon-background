@@ -1,8 +1,3 @@
-Background Hexagon Effects
-
-[Live Demo](https://hdriel.github.io/hexagon-background/)
-
-
 # Hexagon Background Effects
 
 This project provides reusable React components that add a stylish hexagon background effect to your application. You can wrap your content with these components to display hexagonal patterns with three distinct hover effects:
