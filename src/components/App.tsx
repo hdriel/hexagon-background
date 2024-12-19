@@ -4,6 +4,8 @@ import './switch.css';
 import './number.input.css';
 import { useReducer, useState } from 'react';
 
+// @ts-ignore
+// @ts-ignore
 function App({
     onChange,
 }: {
@@ -57,6 +59,22 @@ function App({
             color: undefined,
         }
     );
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const hoverFieldColorStyle: any = {
+        '--color-off': hoverFields.color,
+        '--color-on': hoverFields.color,
+        '--color-hover': hoverFields.color,
+    };
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const spotlightFieldColorStyle: any = {
+        '--color-off': spotlightFields.color,
+        '--color-on': spotlightFields.color,
+        '--color-hover': spotlightFields.color,
+    };
 
     return (
         <div className="app">
@@ -134,14 +152,7 @@ function App({
                                     value={typeof hoverFields.color === 'string' ? hoverFields.color : ''}
                                     onChange={(event) => updateHoverFields({ color: event.target.value })}
                                 />
-                                <span
-                                    className="checkmark round"
-                                    style={{
-                                        '--color-off': hoverFields.color,
-                                        '--color-on': hoverFields.color,
-                                        '--color-hover': hoverFields.color,
-                                    }}
-                                ></span>
+                                <span className="checkmark round" style={hoverFieldColorStyle}></span>
                             </label>
                         </div>
 
@@ -199,14 +210,7 @@ function App({
                                     value={typeof spotlightFields.color === 'string' ? spotlightFields.color : ''}
                                     onChange={(event) => updateSpotlightFields({ color: event.target.value })}
                                 />
-                                <span
-                                    className="checkmark round"
-                                    style={{
-                                        '--color-off': spotlightFields.color,
-                                        '--color-on': spotlightFields.color,
-                                        '--color-hover': spotlightFields.color,
-                                    }}
-                                ></span>
+                                <span className="checkmark round" style={spotlightFieldColorStyle}></span>
                             </label>
                         </div>
 
