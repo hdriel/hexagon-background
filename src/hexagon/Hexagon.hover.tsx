@@ -1,9 +1,9 @@
-import React, { type CSSProperties } from 'react';
-import type { PropsWithChildren } from 'react';
+import React from 'react';
+import type { PropsWithChildren, CSSProperties } from 'react';
 import { isMobile } from 'react-device-detect';
 
 import './hexagon.scss';
-import { useElementSize } from '../hooks/useElementSize.ts';
+import { useElementSize } from '../hooks/useElementSize';
 import { useHexagons } from '../hooks/useHexagons';
 import classNames from 'classnames';
 

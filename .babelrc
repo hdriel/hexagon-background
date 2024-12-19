@@ -1,0 +1,10 @@
+{
+    "presets": [
+        "@babel/preset-react",
+        "@babel/preset-typescript"
+    ],
+    "plugins": [
+        ["@babel/plugin-transform-react-jsx", { "extensions": [".jsx", ".js", ".ts", ".tsx", ".json"] }]
+    ],
+    "exclude": "node_modules/**"
+}

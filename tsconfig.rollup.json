@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "ESNext",
+    "target": "ES5",
+    "jsx": "react-jsx",
+    "baseUrl": "./",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "moduleResolution": "Node",
+    "declarationDir": "./dist",
+    "declaration": true,
+    "paths": {
+      "*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": [".idea", ".git", "build", "node_modules", "lib", "dist", "storybook-static", "rollup.config.js", "src/components", "src/main.tsx", "src/assets"]
+}
