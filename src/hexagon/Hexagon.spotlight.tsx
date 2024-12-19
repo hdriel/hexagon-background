@@ -11,6 +11,7 @@ interface HexagonSpotlightProps {
     style?: CSSProperties;
     resize?: boolean;
     color?: string;
+    size?: string;
     theme?: 'dark' | 'light';
 }
 
@@ -19,11 +20,12 @@ const HexagonSpotlight: React.FC<PropsWithChildren<HexagonSpotlightProps>> = ({
     style,
     resize = true,
     color,
+    size,
     theme = 'dark',
 }): React.ReactElement => {
     const [ref, { width, height }] = useElementSize(!isMobile && resize);
     const hexagons = useHexagons({ width, height, color, filled: false, hoverEffect: false });
-    const lightElement = useHexagonSpotlight(ref);
+    const lightElement = useHexagonSpotlight(ref, { size, color });
 
     const hexagonClass = classNames({
         'hexagon-container': true,

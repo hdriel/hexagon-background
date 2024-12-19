@@ -10,7 +10,7 @@ import classNames from 'classnames';
 interface HexagonHoverProps {
     style?: CSSProperties;
     resize?: boolean;
-    color?: string;
+    color?: string | boolean;
     filled?: string | boolean;
     theme?: 'dark' | 'light';
 }
