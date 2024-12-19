@@ -6,9 +6,10 @@ import { babel } from '@rollup/plugin-babel';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import { dts } from 'rollup-plugin-dts';
 import del from 'rollup-plugin-delete';
-import postcss from 'rollup-plugin-postcss';
+import styles from 'rollup-plugin-styles';
 import filesize from 'rollup-plugin-filesize';
 import { builtinModules } from 'module';
+import { format, parse } from 'path';
 
 // This is required to read package.json file when
 // using Native ES modules in Node.js
@@ -30,22 +31,36 @@ const externalDep = [
     'hoist-non-react-statics',
 ];
 
+const getTypesPath = (jsFile) => {
+    const pathInfo = parse(jsFile);
+    console.log('pathInfo', pathInfo);
+    return format({
+        ...pathInfo,
+        base: '',
+        dir: pathInfo.dir,
+        ext: '.d.ts',
+    });
+};
+
 export default [
     {
         // Main build for JS (CJS and ESM)
         input: 'src/index.ts',
         output: [
             {
-                sourcemap: 'inline',
-                dir: 'dist',
+                file: packageJson.main,
                 format: 'cjs',
-                interop: 'auto',
+                interop: 'compat',
+                exports: 'named',
+                sourcemap: true,
+                inlineDynamicImports: true,
             },
             {
-                sourcemap: 'inline',
-                dir: 'dist',
+                file: packageJson.module,
                 format: 'esm',
-                interop: 'esModule',
+                exports: 'named',
+                sourcemap: true,
+                inlineDynamicImports: true,
             },
         ],
         plugins: [
@@ -53,11 +68,7 @@ export default [
             peerDepsExternal(),
             resolve({
                 extensions: ['.js', '.jsx', '.ts', '.tsx'],
-                moduleDirectories: ['node_modules'],
-                dedupe: externalDep,
-                preferBuiltins: true,
                 browser: true,
-                main: true,
             }),
             babel({
                 babelHelpers: 'bundled',
@@ -65,6 +76,7 @@ export default [
                 exclude: 'node_modules/**',
                 babelrc: true,
             }),
+            styles({ mode: 'inject' }),
             typescript({
                 tsconfig: './tsconfig.rollup.json',
                 sourceMap: sourceMap, // Ensure source maps are enabled for TypeScript
@@ -73,19 +85,19 @@ export default [
             }),
             commonjs(),
             terser(),
-            postcss({
-                minimize: true,
-                extensions: ['.css', '.less', '.scss'],
-                plugins: [],
-            }),
             filesize(),
         ],
         external: externalDep,
     },
     {
-        input: 'src/index.ts',
-        output: [{ file: 'dist/index.d.ts', format: 'es' }],
+        input: getTypesPath(packageJson.module ?? packageJson.main),
+        output: [
+            {
+                file: packageJson.types,
+                format: 'esm',
+            },
+        ],
         plugins: [dts()],
-        external: [/\.css$/],
+        external: [/\.(sass|scss|css)$/] /* ignore style files */,
     },
 ];
