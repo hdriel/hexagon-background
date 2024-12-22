@@ -1,22 +1,31 @@
+import React, { useReducer, useState } from 'react';
 import './App.css';
 import './checkbox.css';
 import './switch.css';
 import './number.input.css';
-import { useReducer, useState } from 'react';
 
-function App({
+interface AppProps {
+    onChange: (state: Omit<AppProps, 'onChange'>) => void;
+    theme?: 'dark' | 'light';
+    type?: 'hover' | 'spotlight';
+    resize?: boolean;
+    size?: number;
+    color?: string | boolean;
+    filled?: boolean;
+}
+
+const App: React.FC<AppProps> = ({
     onChange,
-}: {
-    onChange: (
-        state: { theme: 'dark' | 'light'; type: 'hover' | 'spotlight'; resize: boolean } & (
-            | { size?: number; color?: string | boolean }
-            | { filled?: number; color?: string | boolean }
-        )
-    ) => void;
-}) {
-    const [theme, setTheme] = useState<'dark' | 'light'>('dark');
-    const [type, setType] = useState<'hover' | 'spotlight'>('spotlight');
-    const [resize, setResize] = useState<boolean>(true);
+    type: _type = 'hover',
+    resize: _resize = true,
+    color: _color,
+    filled: _filled = false,
+    size: _size = 100,
+    theme: _theme = 'dark',
+}) => {
+    const [theme, setTheme] = useState<'dark' | 'light'>(_theme);
+    const [type, setType] = useState<'hover' | 'spotlight'>(_type);
+    const [resize, setResize] = useState<boolean>(_resize);
 
     const [hoverFields, updateHoverFields] = useReducer(
         (
@@ -34,10 +43,7 @@ function App({
             onChange({ ...newState, theme, type, resize });
             return newState;
         },
-        {
-            filled: false,
-            color: undefined,
-        }
+        { filled: _filled, color: _color }
     );
 
     const [spotlightFields, updateSpotlightFields] = useReducer(
@@ -53,15 +59,12 @@ function App({
             onChange({ ...newState, theme, type, resize });
             return newState;
         },
-        {
-            size: 100,
-            color: undefined,
-        }
+        { size: _size, color: _color }
     );
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const hoverFieldColorStyle: any = {
+    const hoverFieldColorStyle: never = {
         '--color-off': hoverFields.color,
         '--color-on': hoverFields.color,
         '--color-hover': hoverFields.color,
@@ -69,7 +72,7 @@ function App({
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const spotlightFieldColorStyle: any = {
+    const spotlightFieldColorStyle: never = {
         '--color-off': spotlightFields.color,
         '--color-on': spotlightFields.color,
         '--color-hover': spotlightFields.color,
@@ -255,6 +258,6 @@ function App({
             </div>
         </div>
     );
-}
+};
 
 export default App;

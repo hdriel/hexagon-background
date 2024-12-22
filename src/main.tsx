@@ -11,7 +11,7 @@ const Main = (): ReactNode => {
     const Wrapper = { hover: HexagonHover, spotlight: HexagonSpotlight }[data.type] ?? HexagonHover;
     return (
         <Wrapper {...data} size={data.size ? `${data.size}px` : ''}>
-            <App onChange={setData} />
+            <App key="app-data" onChange={setData} {...data} />
         </Wrapper>
     );
 };

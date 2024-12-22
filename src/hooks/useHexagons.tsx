@@ -18,16 +18,18 @@ export function useHexagons({
     const hexagonInCol = height ? parseInt(String(height / 75), 10) : 0;
     const varColor = (hoverEffect && color) || '#00FF00';
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error
-    const hexagonStyle: Record<string, string> = { ...(varColor && { '--hexagon-color': varColor }) };
+    const hexagonStyle: Record<string, string> = {
+        ...(varColor && typeof varColor === 'string' && { '--hexagon-color': varColor }),
+    };
 
     const hexagonClass = classNames({
         hexagon: true,
         filled: filled,
-        colorized: !color,
+        colorized: !color || (typeof color === 'boolean' && color),
         'hexagon-hover': hoverEffect,
     });
+
+    console.log('hexagonClass', hexagonClass);
 
     return hexagonInCol && hexagonInRow
         ? Array.from(new Array(hexagonInCol), (_hc, hci) => (

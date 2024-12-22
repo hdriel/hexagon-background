@@ -103,7 +103,7 @@
 }
 
 .hexagon-hover:hover{
-    background-color: var(--hexagon-color) !important;
+    background-color: var(--hexagon-color, #0F0) !important;
     transition: 0s;
 }
 
