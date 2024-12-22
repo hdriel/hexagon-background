@@ -29,8 +29,6 @@ export function useHexagons({
         'hexagon-hover': hoverEffect,
     });
 
-    console.log('hexagonClass', hexagonClass);
-
     return hexagonInCol && hexagonInRow
         ? Array.from(new Array(hexagonInCol), (_hc, hci) => (
               <div key={`hexagon-row-${hci}`} className="hexagon-row">

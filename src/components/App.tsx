@@ -4,12 +4,12 @@ import './checkbox.css';
 import './switch.css';
 import './number.input.css';
 
-interface AppProps {
+export interface AppProps {
     onChange: (state: Omit<AppProps, 'onChange'>) => void;
     theme?: 'dark' | 'light';
     type?: 'hover' | 'spotlight';
     resize?: boolean;
-    size?: number;
+    radius?: number;
     color?: string | boolean;
     filled?: boolean;
 }
@@ -20,46 +20,49 @@ const App: React.FC<AppProps> = ({
     resize: _resize = true,
     color: _color,
     filled: _filled = false,
-    size: _size = 100,
+    radius: _radius = 100,
     theme: _theme = 'dark',
 }) => {
     const [theme, setTheme] = useState<'dark' | 'light'>(_theme);
     const [type, setType] = useState<'hover' | 'spotlight'>(_type);
     const [resize, setResize] = useState<boolean>(_resize);
 
+    const data = {
+        theme,
+        type,
+        resize,
+        color: _color,
+        filled: _filled,
+        radius: _radius,
+    };
     const [hoverFields, updateHoverFields] = useReducer(
         (
             state: { filled?: boolean; color?: string | boolean },
             action: { filled?: boolean; color?: string | boolean }
         ) => {
             const newState = { ...state };
-            if (action.filled !== undefined) {
-                newState.filled = action.filled;
-            }
-            if (action.color !== undefined) {
-                newState.color = action.color;
-            }
+            if (action.filled !== undefined) newState.filled = action.filled;
+            if (action.color !== undefined) newState.color = action.color;
+            setTimeout(() => onChange({ ...data, ...newState }));
 
-            onChange({ ...newState, theme, type, resize });
             return newState;
         },
         { filled: _filled, color: _color }
     );
 
     const [spotlightFields, updateSpotlightFields] = useReducer(
-        (state: { size: number; color?: string | boolean }, action: { size?: number; color?: string | boolean }) => {
+        (
+            state: { radius: number; color?: string | boolean },
+            action: { radius?: number; color?: string | boolean }
+        ) => {
             const newState = { ...state };
-            if (action.size !== undefined) {
-                newState.size = action.size;
-            }
-            if (action.color !== undefined) {
-                newState.color = action.color;
-            }
+            if (action.radius !== undefined) newState.radius = action.radius;
+            if (action.color !== undefined) newState.color = action.color;
+            setTimeout(() => onChange({ ...data, ...newState }));
 
-            onChange({ ...newState, theme, type, resize });
             return newState;
         },
-        { size: _size, color: _color }
+        { radius: _radius, color: _color }
     );
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -203,24 +206,28 @@ const App: React.FC<AppProps> = ({
                     <div className="card">
                         <div className="field quantity">
                             <label className="field">
-                                Size
+                                Radius
                                 <div className="input-number">
                                     <input
                                         type="number"
-                                        value={spotlightFields.size}
+                                        value={spotlightFields.radius}
                                         min={100}
                                         onChange={(event) =>
-                                            updateSpotlightFields({ size: event.target.valueAsNumber })
+                                            updateSpotlightFields({ radius: event.target.valueAsNumber })
                                         }
                                     />
                                     <div className="input-number-actions">
                                         <button
-                                            onClick={() => updateSpotlightFields({ size: spotlightFields.size + 100 })}
+                                            onClick={() =>
+                                                updateSpotlightFields({ radius: spotlightFields.radius + 100 })
+                                            }
                                         >
                                             <span>+</span>
                                         </button>
                                         <button
-                                            onClick={() => updateSpotlightFields({ size: spotlightFields.size - 100 })}
+                                            onClick={() =>
+                                                updateSpotlightFields({ radius: spotlightFields.radius - 100 })
+                                            }
                                         >
                                             <span>-</span>
                                         </button>

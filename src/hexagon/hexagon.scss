@@ -96,8 +96,6 @@
     }
 }
 
-
-
 .hexagon-colored {
     animation: colored-animation 4s linear infinite;
 }
@@ -116,9 +114,9 @@
     border-radius: 50%;
     filter: blur(15px);
     z-index: 0;
-    background: var(--hexagon-cursor-color);
-    width: var(--hexagon-cursor-size);
-    height: var(--hexagon-cursor-size);
+    background: var(--hexagon-cursor-color, #0F0);
+    width: calc(var(--hexagon-cursor-size, 200px) * 2);
+    height: calc(var(--hexagon-cursor-size, 200px) * 2);
     &.colorized {
         animation: colorized-animation 2s linear infinite;
     }

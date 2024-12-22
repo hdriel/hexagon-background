@@ -6,21 +6,22 @@ export const useHexagonSpotlight = (
     {
         color = undefined,
         // color = 'linear-gradient(90deg, #335BF4 0%, #2AE9C9 100%)',
-        size = '500px',
-    }: { color?: string; size?: string } = {}
+        radius = 200,
+    }: { color?: string; radius?: number } = {}
 ) => {
+    radius = Math.max(radius, 60);
+
     const spotlightRef: RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
     const varColor = color || '#00FF00';
 
     const hexagonStyle: Record<string, string> = {
-        ...(varColor && { '--hexagon-cursor-color': varColor }),
-        ...(size && { '--hexagon-cursor-size': size }),
-        ...(size && { '--hexagon-color': varColor }),
+        ...(varColor && typeof varColor === 'string' && { '--hexagon-cursor-color': varColor }),
+        ...(radius && { '--hexagon-cursor-size': `${radius}px` }),
     };
 
     const hexagonClass = classNames({
         'hexagon-cursor': true,
-        colorized: !color,
+        colorized: !color || (typeof color === 'boolean' && color),
     });
 
     useLayoutEffect(() => {

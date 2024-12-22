@@ -1,11 +1,10 @@
 import React from 'react';
 import type { PropsWithChildren, CSSProperties } from 'react';
 import { isMobile } from 'react-device-detect';
-
-import './hexagon.scss';
+import classNames from 'classnames';
 import { useElementSize } from '../hooks/useElementSize';
 import { useHexagons } from '../hooks/useHexagons';
-import classNames from 'classnames';
+import './hexagon.scss';
 
 interface HexagonHoverProps {
     style?: CSSProperties;
@@ -18,13 +17,20 @@ interface HexagonHoverProps {
 const HexagonHover: React.FC<PropsWithChildren<HexagonHoverProps>> = ({
     children,
     style,
-    resize = true,
     color,
-    filled,
+    resize = true,
+    filled = false,
     theme = 'dark',
 }): React.ReactElement => {
     const [ref, { width, height }] = useElementSize(!isMobile && resize);
-    const hexagons = useHexagons({ width, height, color, filled, hoverEffect: true });
+
+    const hexagons = useHexagons({
+        width,
+        height,
+        color,
+        filled,
+        hoverEffect: true,
+    });
 
     const hexagonClass = classNames({
         'hexagon-container': true,
