@@ -6,6 +6,12 @@
   background: rgba(255, 255, 255, 0.63);
   border-radius: 12px;
   padding: 2em;
+  opacity: 0.2;
+  transition: opacity 2s;
+}
+
+.app:hover{
+  opacity: 1;
 }
 
 .app p, .app span {
