@@ -91,12 +91,7 @@ export default [
     },
     {
         input: getTypesPath(packageJson.module ?? packageJson.main),
-        output: [
-            {
-                file: packageJson.types,
-                format: 'esm',
-            },
-        ],
+        output: [{ file: packageJson.types, format: 'esm' }],
         plugins: [dts()],
         external: [/\.(sass|scss|css)$/] /* ignore style files */,
     },
